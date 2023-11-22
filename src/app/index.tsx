@@ -1,12 +1,11 @@
-import React from 'react';
 import './index.scss';
+import withProviders from './providers';
+import Routing from './router';
 
-const App = () => {
+const AppWrapper = () => (
+  <Routing />
+);
 
-  return (
-    <>
-    </>
-  );
-}
+const App = withProviders(AppWrapper);
 
 export default App;

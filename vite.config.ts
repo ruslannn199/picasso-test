@@ -4,7 +4,6 @@ import eslintPlugin from 'vite-plugin-eslint';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -22,7 +21,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@pages': path.resolve(__dirname, 'src/pages'),
     }
   }
 })

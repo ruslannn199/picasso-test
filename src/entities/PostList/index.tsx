@@ -1,33 +1,32 @@
-import { useTypedSelector } from '@/app/store';
 import { useGetPostsQuery } from './api';
-import { useEffect } from 'react';
-import { setPosts } from './model/slice';
-import { useDispatch } from 'react-redux';
+import { Button } from 'antd';
+import { useState } from 'react';
 
 const PostsList: React.FC = () => {
-  const { items, currentPage } = useTypedSelector((state) => (state.posts));
-  const dispatch = useDispatch();
-  const { data } = useGetPostsQuery(currentPage, {
-    selectFromResult: ({ data }) => ({
-      ...data,
-      data: data?.data.length ? data.data : [],
-      hasNextPage: Number(data?.amount) - 10 * currentPage > 0,
-    }),
-  });
+  const [page, setPage] = useState(1);
+  const { data: posts, isLoading } = useGetPostsQuery(page);
 
-  useEffect(() => {
-    dispatch(setPosts(data));
-    console.log('dispatch');
-  }, [data, dispatch]);
+  const loadMore = () => {
+    if (!isLoading) {
+      setPage((prev) => (prev + 1));
+    }
+  }
 
   return (
     <>
-      {items.map((item, index) => (
-        <div key={index}>
-          <h2>{item.title}</h2>
-          <p>{item.body}</p>
-        </div>
-      ))}
+      {
+        posts
+          ? (
+            posts.data.map((post, index) => (
+              <div key={index}>
+                <h2>{post.title}</h2>
+                <p>{post.body}</p>
+              </div>
+            ))
+          )
+          : null
+      }
+      <Button onClick={loadMore}>Load more</Button>
     </>
   );
 }

@@ -14,10 +14,12 @@ const postsApi = createApi({
         },
         method: 'GET',
       }),
+      serializeQueryArgs: ({ endpointName }) => (endpointName),
       merge: (prevData: Posts, newData: Posts): Posts => ({
         data: [...prevData.data, ...newData.data],
         amount: newData.amount,
       }),
+      forceRefetch: ({ currentArg, previousArg }) => (currentArg !== previousArg),
       transformResponse: (data: Post[], meta): Posts => ({
         data, amount: parseInt(meta?.response?.headers.get('X-Total-Count') || '0', 10)
       }),

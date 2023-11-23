@@ -17,10 +17,11 @@ export const postsSlice = createSlice({
     setCurrentPage: (state, { payload }: PayloadAction<number>) => ({
       ...state, currentPage: payload,
     }),
+    startLoading: (state) => ({
+      ...state, isLoading: true,
+    }),
+    stopLoading: (state) => ({
+      ...state, isLoading: false,
+    }),
   }
 });
-
-export const {
-  setPosts,
-  setCurrentPage,
-} = postsSlice.actions;

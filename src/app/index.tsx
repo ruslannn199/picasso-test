@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './index.scss';
+import './index.css';
 import withProviders from './providers';
 import Routing from './router';
 import { Layout } from 'antd';
@@ -14,6 +14,7 @@ const App: React.FC = () => (
     <Content style={{
       padding: "0 10px",
       margin: "0 auto",
+      width: "100%",
     }}>
       <Routing />
     </Content>

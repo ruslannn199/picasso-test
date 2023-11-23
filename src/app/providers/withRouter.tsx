@@ -1,8 +1,9 @@
+import { Spin } from 'antd';
 import { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 export const withRouter = (component: () => React.ReactNode) => () => (
   <BrowserRouter>
-    <Suspense fallback="Loading...">{component()}</Suspense>
+    <Suspense fallback={<Spin size="large" fullscreen />}>{component()}</Suspense>
   </BrowserRouter>
 );

@@ -1,6 +1,7 @@
 import { useGetPostsQuery } from './api';
 import { Button } from 'antd';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const PostsList: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -17,11 +18,13 @@ const PostsList: React.FC = () => {
       {
         posts
           ? (
-            posts.data.map((post, index) => (
-              <div key={index}>
-                <h2>{post.title}</h2>
-                <p>{post.body}</p>
-              </div>
+            posts.data.map(({ id, title, body }, index) => (
+              <Link key={index} to={`post/${id}`}>
+                <div>
+                  <h2>{title}</h2>
+                  <p>{body}</p>
+                </div>
+              </Link>
             ))
           )
           : null
